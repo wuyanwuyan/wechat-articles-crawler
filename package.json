@@ -1,0 +1,16 @@
+{
+  "name": "wechart-articles-crawler-based-anyproxy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/wuyanwuyan/wechart-articles-crawler-based-anyproxy.git",
+  "author": "wuyanwuyan <xxsinxmu@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "anyproxy": "^4.0.4",
+    "koa": "^2.4.1",
+    "koa-body": "^2.5.0",
+    "koa-router": "^7.3.0",
+    "koa2-cors": "^2.0.5",
+    "socket.io": "^2.0.4"
+  }
+}
