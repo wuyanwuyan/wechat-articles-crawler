@@ -7,10 +7,12 @@
   "license": "MIT",
   "dependencies": {
     "anyproxy": "^4.0.4",
+    "ip": "^1.1.5",
     "koa": "^2.4.1",
     "koa-body": "^2.5.0",
     "koa-router": "^7.3.0",
     "koa2-cors": "^2.0.5",
+    "openurl": "^1.1.1",
     "socket.io": "^2.0.4"
   }
 }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>爬取微信公众号</title>
+    <link rel="stylesheet" href="http://www.cqaso.com/tempapi/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+    <script src="https://cdn.bootcss.com/socket.io/2.0.4/socket.io.js"></script>
+</head>
+<style></style>
+<body>
+<table class="table table-bordered table-sm">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>标题</th>
+        <th>校验</th>
+        <th>时间</th>
+        <th>作者</th>
+        <th>公众号</th>
+        <th>阅读量</th>
+        <th>点赞数</th>
+        <th>url</th>
+        <th>备注</th>
+        <th>爬取时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script id="tmp" type="text/x-jquery-tmpl">
+    <tr>
+    <td>${index}</td>
+    <td class="text-nowrap" title="${otitle}">${title}</td>
+    <td class="text-nowrap" title="${activityName}">${same}</td>
+    <td>${postDate}</td>
+    <td>${author}</td>
+    <td>${postUser}</td>
+    <td>${readNum}</td>
+    <td>${likeNum}</td>
+    <td><a class="text-ellipsis" href="${ourl}" title="${ourl}" target="_blank">${ourl}</a></td>
+    <td>${remark}</td>
+    <td>${crawTime}</td>
+    </tr>
+</script>
+
+<script>
+    function decodeHtml(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+    }
+
+    function allCN(str) {
+        var reg = /[^\u4E00-\u9FA5]/g;
+        return str.replace(reg, '');
+    }
+
+    var index = 1;
+    var tmp = $('#tmp').html();
+
+    var socket = io('/result').connect(window.location.origin);
+    socket.on('newData', function (data) {
+        console.log(index, data);
+        data.index = index;
+        data.title = decodeHtml(data.otitle);
+        data.same = allCN(data.title) === allCN(data.activityName);
+        if (data.js_share_source) data.remark = '分享';
+        $.tmpl(tmp, data).appendTo("tbody");
+        document.title = index + '爬取微信公众号';
+        index++;
+    });
+
+
+    socket.on('hi', function (data) {
+        console.log(data);
+    });
+
+</script>
+</body>
+</html>

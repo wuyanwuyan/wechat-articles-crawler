@@ -8,16 +8,16 @@ const options = {
         wsPort: 8003,
     },
     throttle: 10000,
-    forceProxyHttps: false,
+    forceProxyHttps: true,
     silent: true
 };
 const proxyServer = new AnyProxy.ProxyServer(options);
 
 proxyServer.on('ready', () => {
-    console.log('-------------------------- start --------------------------------')
+    console.log('-------------------------- start --------------------------------');
 });
 proxyServer.on('error', (e) => {
-    console.log('error');
+
 });
 proxyServer.start();
 
