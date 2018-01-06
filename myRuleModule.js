@@ -83,7 +83,7 @@ var articleInjectJs = `<script id="injectJs" type="text/javascript">${articleInj
 var fakeImg = fs.readFileSync('./fake.png');
 const maxLength = 1000;
 module.exports = {
-    summary: 'wechat articles',
+    summary: 'wechat articles crawler',
     *beforeSendRequest(requestDetail) {
         // 如果请求图片，直接返回一个本地图片，提升性能
         let accept = requestDetail.requestOptions.headers['Accept'];
