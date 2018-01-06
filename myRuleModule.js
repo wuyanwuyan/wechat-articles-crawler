@@ -1,8 +1,8 @@
 const Koa = require('Koa');
-const koaBody = require('koa-body');
 const Router = require('koa-router');
 const fs = require('fs');
 const ip = require('ip').address();
+
 const app = new Koa();
 const moment = require('moment');
 var server = require('http').createServer(app.callback());
@@ -20,12 +20,10 @@ app.use(async function (ctx, next) {
     }
 });
 
-app.use(require('koa2-cors')());
-app.use(koaBody({multipart: true}));
+// app.use(require('koa2-cors')());
 
-var articles = [];
+let articles = [], index = 0;
 
-let index = 0;
 router.get('/', async (ctx, next) => {
     ctx.body = fs.readFileSync('./result.html', 'utf-8');
 })
@@ -36,7 +34,7 @@ app.use(router.routes());
 server.listen(9000);
 require("openurl").open("http://localhost:9000");
 
-let wechatIo = io.of('/wechatwebpage'), resultIo = io.of('/result');
+let wechatIo = io.of('/wechat'), resultIo = io.of('/result');
 wechatIo.on('connection', function (socket) {
     socket.on('crawler', (crawData) => {
         crawData.crawTime = moment().format('YYYY-MM-DD HH:mm');
@@ -61,11 +59,11 @@ wechatIo.on('connection', function (socket) {
 
 
     socket.on('noData', (crawData) => {
-        console.log(' 超时没有爬取到？ url: ', articles[index].content_url);
+        console.warn(' 超时没有爬取到？ url: ', articles[index].content_url);
 
         index++;
         if (articles[index]) {
-            socket.emit('url', {url: articles[index].content_url, index: index,total: articles.length});
+            socket.emit('url', {url: articles[index].content_url, index: index, total: articles.length});
         } else {
             socket.emit('end', {});
         }
@@ -82,12 +80,22 @@ var injectJsFile = fs.readFileSync('./injectJs.js', 'utf-8').replace('{$IP}', ip
 var articleInjectJsFile = fs.readFileSync('./articleInjectJs.js', 'utf-8').replace('{$IP}', ip);
 var injectJs = `<script id="injectJs" type="text/javascript">${injectJsFile}</script>`;
 var articleInjectJs = `<script id="injectJs" type="text/javascript">${articleInjectJsFile}</script>`;
-let stopScroll = false;
-
+var fakeImg = fs.readFileSync('./fake.png');
+const maxLength = 1000;
 module.exports = {
     summary: 'wechat articles',
     *beforeSendRequest(requestDetail) {
-        console.log('------ requestDetail   ', requestDetail.url, ' ----------- ', requestDetail.requestOptions);
+        // 如果请求图片，直接返回一个本地图片，提升性能
+        let accept = requestDetail.requestOptions.headers['Accept'];
+        if (accept && accept.indexOf('image') !== -1 && requestDetail.url.indexOf('mmbiz.qpic.cn/') !== -1) {
+            return {
+                response: {
+                    statusCode: 200,
+                    header: {'content-type': 'image/png'},
+                    body: fakeImg
+                }
+            };
+        }
     },
     *beforeSendResponse(requestDetail, responseDetail) {
         // 历史文章列表
@@ -109,12 +117,12 @@ module.exports = {
 
                 msgList.list.forEach((v, i) => {
                     if (v.app_msg_ext_info) {
-                        v.app_msg_ext_info.del_flag != 4 && newAdd.push(
+                        v.app_msg_ext_info.del_flag != 4 && v.app_msg_ext_info.content_url && newAdd.push(
                             Object.assign({}, v.app_msg_ext_info, v.comm_msg_info)
                         )
                         let subList = (v.app_msg_ext_info && v.app_msg_ext_info.multi_app_msg_item_list) || [];
                         subList.forEach(v1 => {
-                            v1.del_flag != 4 && newAdd.push(
+                            v1.del_flag != 4 && v1.content_url && newAdd.push(
                                 Object.assign({}, v1, v.comm_msg_info)
                             )
                         })
@@ -133,10 +141,6 @@ module.exports = {
 
             } else {
 
-                if (stopScroll) {
-                    return;
-                }
-
                 can_msg_continue = body.indexOf('can_msg_continue":1') !== -1;
 
                 let regList = /general_msg_list":"(.*)","next_offset/;
@@ -149,12 +153,12 @@ module.exports = {
 
                 general_msg_list.list.forEach((v, i) => {
                     if (v.app_msg_ext_info) {
-                        v.app_msg_ext_info.del_flag != 4 && newAdd.push(
+                        v.app_msg_ext_info.del_flag != 4 && v.app_msg_ext_info.content_url && newAdd.push(
                             Object.assign({}, v.app_msg_ext_info, v.comm_msg_info)
                         )
                         let subList = (v.app_msg_ext_info && v.app_msg_ext_info.multi_app_msg_item_list) || [];
                         subList.forEach(v1 => {
-                            v1.del_flag != 4 && newAdd.push(
+                            v1.del_flag != 4 && v1.content_url && newAdd.push(
                                 Object.assign({}, v1, v.comm_msg_info)
                             )
                         })
@@ -167,15 +171,13 @@ module.exports = {
                 v.content_url = v.content_url.replace(/amp;/g, '').replace(/\\\//g, '/').replace('#wechat_redirect', '');
             })
 
-            const maxLength = 1000;
 
             if (articles.length < maxLength)
                 articles = articles.concat(newAdd);
 
-            console.log('--- articles length ', articles.length);
+            console.log('获取文章的列表总数articles.length ', articles.length);
 
-            if (!can_msg_continue || articles.length >= maxLength) {
-                stopScroll = true;
+            if (!can_msg_continue || articles.length > maxLength) {
                 fetchListEnd_StartArticle();
             }
 
@@ -211,4 +213,10 @@ module.exports = {
 function fetchListEnd_StartArticle() {
     console.log('最终获取文章的列表总数： ', articles.length);
     wechatIo.emit('url', {url: articles[0].content_url, index: 0, total: articles.length});
+}
+
+
+function resetData() {
+    index = 0;
+    articles = [];
 }

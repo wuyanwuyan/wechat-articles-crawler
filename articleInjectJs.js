@@ -1,5 +1,5 @@
 var serverUrl = 'http://{$IP}:9000';
-var socket = io.connect(serverUrl);
+var socket = io(serverUrl+'/wechat').connect(serverUrl);
 
 socket.on('success', function () {
     var localIndex = window.localStorage.localIndex;

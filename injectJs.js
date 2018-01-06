@@ -3,9 +3,8 @@ var scrollKey = setInterval(function () {
 },1000);
 
 var serverUrl = 'http://{$IP}:9000';
-var socket = io.connect(serverUrl,function () {
-    
-});
+
+var socket = io(serverUrl+'/wechat').connect(serverUrl);
 
 socket.on('url', function (data) {
     clearInterval(scrollKey);
@@ -13,4 +12,3 @@ socket.on('url', function (data) {
     window.localStorage.total = data.total;
     window.location = data.url;
 });
-

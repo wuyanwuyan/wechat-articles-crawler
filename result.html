@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="cn">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>爬取微信公众号</title>
     <link rel="stylesheet" href="http://www.cqaso.com/tempapi/css/bootstrap.min.css">
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
     <script src="https://cdn.bootcss.com/socket.io/2.0.4/socket.io.js"></script>
 </head>
-<style></style>
+<style>
+    .text-ellipsis {
+        display: inline-block;
+        max-width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
 <body>
 <table class="table table-bordered table-sm">
     <thead>
@@ -47,14 +55,17 @@
 
 <script>
     function decodeHtml(html) {
-        var txt = document.createElement("textarea");
-        txt.innerHTML = html;
-        return txt.value;
+        var span = document.createElement("span");
+        span.innerHTML = html;
+        return $(span).text().trim();
     }
 
+    // 只保留中文，字母，数字，进行比较
     function allCN(str) {
-        var reg = /[^\u4E00-\u9FA5]/g;
-        return str.replace(reg, '');
+        var reg = /[^a-zA-Z0-9\u4E00-\u9FA5]/ig;
+        var ret = str.replace(reg, '');
+
+        return ret;
     }
 
     var index = 1;
@@ -65,16 +76,12 @@
         console.log(index, data);
         data.index = index;
         data.title = decodeHtml(data.otitle);
+
         data.same = allCN(data.title) === allCN(data.activityName);
         if (data.js_share_source) data.remark = '分享';
         $.tmpl(tmp, data).appendTo("tbody");
         document.title = index + '爬取微信公众号';
         index++;
-    });
-
-
-    socket.on('hi', function (data) {
-        console.log(data);
     });
 
 </script>
