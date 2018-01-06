@@ -20,3 +20,18 @@ node index
 ```
 会自动打开一个result.html，实时查看爬取文章的内容
 点击一个微信公众号，点击查看历史消息，之后历史页面会不停的滚动到底，滚动完毕，就开始一篇一篇打开文章，爬取内容。
+
+## 关键点
+原理很简单，基于真机的爬虫，中间人攻击，注入javascript脚本，让浏览器模拟人的操作过程。
+
+1. 禁止网页的Content-Security-Policy。，CSP 的实质就是白名单制度，开发者明确告诉客户端，哪些外部资源可以加载和执行，等同于提供白名单。如果不禁用，注入的javascript将无法执行。这里的做法，简单粗暴的删除http响应的任何和csp有关的头部。
+``` javascript
+ // 删除微信网页的安全策略
+delete header['Content-Security-Policy'];
+delete header['Content-Security-Policy-Report-Only'];
+```
+2. 禁止微信浏览器缓存页面内容，同样要修改响应头的和缓存相关的内容。
+```javascript
+ header['Expires'] = 0;
+ header['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+```
