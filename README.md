@@ -8,15 +8,9 @@
 
 如图所示：
 
+<div style="text-align:center"><img src ="http://upload-images.jianshu.io/upload_images/2058960-968978f9198c86ef.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="获取文章列表演示"/></div>
 
-
-
-![获取文章列表演示](http://upload-images.jianshu.io/upload_images/2058960-968978f9198c86ef.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
-
-
-![一篇一篇打开文章链接](http://upload-images.jianshu.io/upload_images/2058960-4ed350ce068446a2.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<div style="text-align:center"><img src ="http://upload-images.jianshu.io/upload_images/2058960-4ed350ce068446a2.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="一篇一篇打开文章链接"/></div>
 
 
 ## 如何运行
