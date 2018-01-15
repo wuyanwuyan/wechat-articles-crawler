@@ -36,6 +36,7 @@ require("openurl").open("http://localhost:9000");
 
 let wechatIo = io.of('/wechat'), resultIo = io.of('/result');
 wechatIo.on('connection', function (socket) {
+
     socket.on('crawler', (crawData) => {
         crawData.crawTime = moment().format('YYYY-MM-DD HH:mm');
 
@@ -81,7 +82,7 @@ var articleInjectJsFile = fs.readFileSync('./articleInjectJs.js', 'utf-8').repla
 var injectJs = `<script id="injectJs" type="text/javascript">${injectJsFile}</script>`;
 var articleInjectJs = `<script id="injectJs" type="text/javascript">${articleInjectJsFile}</script>`;
 var fakeImg = fs.readFileSync('./fake.png');
-const maxLength = 1000;
+const maxLength = 3000;
 module.exports = {
     summary: 'wechat articles crawler',
     *beforeSendRequest(requestDetail) {
@@ -140,7 +141,6 @@ module.exports = {
                 newResponse.header = header;
 
             } else {
-
                 can_msg_continue = body.indexOf('can_msg_continue":1') !== -1;
 
                 let regList = /general_msg_list":"(.*)","next_offset/;
@@ -172,7 +172,7 @@ module.exports = {
             })
 
 
-            if (articles.length < maxLength)
+            if (articles.length <= maxLength)
                 articles = articles.concat(newAdd);
 
             console.log('获取文章的列表总数articles.length ', articles.length);
