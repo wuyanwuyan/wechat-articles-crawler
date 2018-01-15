@@ -7,7 +7,15 @@
 4. 获取完全部文章的内容（包括url，标题，发布时间等等）后，下一步就是循环通知微信浏览器一个一个去打开这些文章网页。每个文章网页也注入js脚本，功能是不停的检查页面的点赞数和阅读数，检测到，就往某服务器发，后台每成功收到一个文章的点赞数和阅读数，就通知微信浏览器打开下一个url。这里我使用了socketio，实现微信浏览器和自建的koa服务器之间的通讯。
 
 如图所示：
+
+
+
+
 ![获取文章列表演示](http://upload-images.jianshu.io/upload_images/2058960-968978f9198c86ef.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+
+
 ![一篇一篇打开文章链接](http://upload-images.jianshu.io/upload_images/2058960-4ed350ce068446a2.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
@@ -33,8 +41,11 @@ var scrollKey = setInterval(function () {
 },1000);
 ```
 当网页滚到底，再次获取文章，这个时候，同样的是get请求，但是返回了Content-Type为`application/json`的格式，这里同样的方法，正则匹配找出并格式化成我们需要的格式
+
+
 ![](http://upload-images.jianshu.io/upload_images/2058960-bf19d52ee8071a0f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 同时当`can_msg_continue`为0时，表示已经拉到底，获取了全部文章。
+
 
 至此，获得了一个公众号的全部文章，包括文章标题，作者，url。但是没有阅读数和点赞数，这需要打开具体的文章链接，才能看得到。
 2. 我们还没获得阅读数和点赞数，接下来就是一步一步让微信浏览器不停地打开具体文章，触发微信浏览器获取阅读数和点赞数。这里使用了socket.io，让文章页面连接自定义的服务器，服务器主动通知浏览器下一个点开的文章链接，这样双向通讯，一个循环就能获取具体文章的阅读数和点赞。
@@ -65,7 +76,10 @@ key = setInterval(function () {
     }, 1000);
 ````
 
+
+
 ![post响应中的阅读数和点赞数](http://upload-images.jianshu.io/upload_images/2058960-03c536e58a47f047.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/800)
+
 
 
 ## 实践过程的注意点
@@ -77,7 +91,10 @@ key = setInterval(function () {
 delete header['Content-Security-Policy'];
 delete header['Content-Security-Policy-Report-Only'];
 ```
+
+
 ![删除和scp有关的header.jpg](http://upload-images.jianshu.io/upload_images/2058960-b39d4167e3039a28.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/800)
+
 
 2. 禁止微信浏览器缓存页面内容，同样要修改响应头的和缓存相关的内容。
 ```javascript
