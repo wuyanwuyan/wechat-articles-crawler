@@ -82,7 +82,7 @@ key = setInterval(function () {
 ## 实践过程的注意点
 原理很简单，基于真机的爬虫，中间人攻击，注入javascript脚本，让浏览器模拟人的操作过程。
 
-1. 禁止网页的Content-Security-Policy。，CSP 的实质就是白名单制度，开发者明确告诉客户端，哪些外部资源可以加载和执行，等同于提供白名单。如果不禁用，注入的javascript将无法执行。这里的做法，简单粗暴的删除http响应的任何和csp有关的头部。
+1. 禁止网页的Content-Security-Policy。CSP 的实质就是白名单制度，开发者明确告诉客户端，哪些外部资源可以加载和执行，等同于提供白名单。如果不禁用，注入的javascript将无法执行。这里的做法，简单粗暴的删除http响应的任何和csp有关的头部。
 ``` javascript
  // 删除微信网页的安全策略
 delete header['Content-Security-Policy'];
