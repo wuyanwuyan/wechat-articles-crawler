@@ -8,9 +8,11 @@
 
 如图所示：
 
-<div style="text-align:center"><img src ="http://upload-images.jianshu.io/upload_images/2058960-968978f9198c86ef.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="获取文章列表演示"/></div>
+![获取文章列表演示](http://upload-images.jianshu.io/upload_images/2058960-968978f9198c86ef.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-<div style="text-align:center"><img src ="http://upload-images.jianshu.io/upload_images/2058960-4ed350ce068446a2.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="一篇一篇打开文章链接"/></div>
+
+![一篇一篇打开文章链接](http://upload-images.jianshu.io/upload_images/2058960-4ed350ce068446a2.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 
 ## 如何运行
@@ -22,9 +24,10 @@ npm start
 ```
 会自动打开一个result.html，实时查看爬取文章的内容
 点击一个微信公众号，点击查看历史消息，之后历史页面会不停的滚动到底，滚动完毕，就开始一篇一篇打开文章，爬取内容。
-![实时结果显示.jpg](http://upload-images.jianshu.io/upload_images/2058960-da9d9bae50979ad3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/800)
+![实时结果显示](http://upload-images.jianshu.io/upload_images/2058960-da9d9bae50979ad3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/800)
 
-##具体过程
+
+## 具体过程
 1.第一步，要获取一个公众号的全部历史文章。在已经设置好anyproxy代理的真机上，查看历史消息，这时微信会打开历史文章网页。
 获取一个html文档：
 ![](http://upload-images.jianshu.io/upload_images/2058960-9830eb06c47ed549.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/800)
