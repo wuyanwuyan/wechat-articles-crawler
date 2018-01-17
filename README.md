@@ -12,7 +12,7 @@
 ![](http://upload-images.jianshu.io/upload_images/2058960-968978f9198c86ef.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 一篇一篇打开文章链接:
-![](http://upload-images.jianshu.io/upload_images/2058960-4ed350ce068446a2.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://upload-images.jianshu.io/upload_images/2058960-0f035da769523276.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 
