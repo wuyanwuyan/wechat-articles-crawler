@@ -17,7 +17,7 @@
 
 
 ## 如何运行
-第一步，一定要安装成功anyproxy，这一步请详细阅读anyproxy的官方教程，写的很详细，要保证能成功代理https，能查看到https的body内容。
+第一步，一定要安装成功anyproxy，这一步请详细阅读[anyproxy的官方教程](http://anyproxy.io/cn/)，写的很详细，要保证能成功代理https，能查看到https的body内容。
 
 ```
 npm install
