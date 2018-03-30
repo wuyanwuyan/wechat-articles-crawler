@@ -1,6 +1,6 @@
 # 基于anyproxy的微信公众号文章爬取，包含阅读数点赞数
 
-视频演示:  
+录制的视频：[点击前往](http://v.youku.com/v_show/id_XMzUwMzE4OTM1Mg==.html?spm=a2hzp.8244740.0.0)
 
 [![Watch the video](https://vthumb.ykimg.com/054104085ABE60F3000001056004F443)](http://v.youku.com/v_show/id_XMzUwMzE4OTM1Mg==.html?spm=a2hzp.8244740.0.0)
 
