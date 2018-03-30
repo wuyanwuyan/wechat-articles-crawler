@@ -1,5 +1,9 @@
 # 基于anyproxy的微信公众号文章爬取，包含阅读数点赞数
 
+视频演示:  
+
+[![Watch the video](https://vthumb.ykimg.com/054104085ABE60F3000001056004F443)](http://v.youku.com/v_show/id_XMzUwMzE4OTM1Mg==.html?spm=a2hzp.8244740.0.0)
+
 ## 基本原理
 1. [AnyProxy](http://anyproxy.io/cn/)是一个阿里开源的HTTP代理服务器，类似fiddler和charles，但是提供了二次开发能力，可以编写js代码改变http/https请求和响应
 2. 为了爬取一个微信公众号的全部文章，首先就是获取全部文章，然后一篇一篇去打开获取文章标题，作者，阅读数，点赞数（阅读点赞数只能在微信app内置浏览器获取）
