@@ -12,12 +12,17 @@
 
 如图所示：
 
-获取文章列表演示: 
-![](http://upload-images.jianshu.io/upload_images/2058960-968978f9198c86ef.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-一篇一篇打开文章链接:
-![](http://upload-images.jianshu.io/upload_images/2058960-0f035da769523276.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<p align="center">
+  <span>获取文章列表演示: </span><br>
+  <img src="http://upload-images.jianshu.io/upload_images/2058960-968978f9198c86ef.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+</p>
 
+
+<p align="center">
+  <span>一篇一篇打开文章链接: </span><br>
+  <img src="http://upload-images.jianshu.io/upload_images/2058960-0f035da769523276.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+</p>
 
 
 ## 如何运行
