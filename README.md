@@ -41,7 +41,7 @@ npm start
 1.第一步，要获取一个公众号的全部历史文章。在已经设置好anyproxy代理的真机上，查看历史消息，这时微信会打开历史文章网页。
 获取一个html文档：
 ![](http://upload-images.jianshu.io/upload_images/2058960-9830eb06c47ed549.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/800)
-，`var msgList`就是我们需要的历史文章数据，简单正则匹配出来，替代非法字符，JSON.parse转成我们需要的格式。 基于anyproxy，我们给这个html文档注入一端脚本，目的是让这个网页不停的往下自己滚动，触发浏览器去获得更多的文章。
+，`var msgList`就是我们需要的历史文章数据，简单正则匹配出来，替代非法字符，JSON.parse转成我们需要的格式。 基于anyproxy，我们给这个html文档注入一段脚本，目的是让这个网页不停的往下自己滚动，触发浏览器去获得更多的文章。
 ```javascript
 var scrollKey = setInterval(function () {
     window.scrollTo(0,document.body.scrollHeight);
