@@ -20,7 +20,7 @@ app.use(async function (ctx, next) {
     }
 });
 
-// app.use(require('koa2-cors')());
+app.use(require('koa2-cors')());
 
 let articles = [], index = 0;
 

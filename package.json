@@ -6,7 +6,7 @@
   "author": "wuyanwuyan <xxsinxmu@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start":"node index"
+    "start": "node index"
   },
   "dependencies": {
     "anyproxy": "^4.0.4",
