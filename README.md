@@ -29,8 +29,8 @@
 第一步，一定要安装成功anyproxy，这一步请详细阅读[anyproxy的官方教程](http://anyproxy.io/cn/)，写的很详细，要保证能成功代理https，能查看到https的body内容。
 
 ```
-npm install
-npm start
+yarn install
+yarn start
 ```
 会自动打开一个result.html，实时查看爬取文章的内容
 点击一个微信公众号，点击查看历史消息，之后历史页面会不停的滚动到底，滚动完毕，就开始一篇一篇打开文章，爬取内容。
